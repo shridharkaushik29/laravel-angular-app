@@ -1,0 +1,16 @@
+{
+    "name": "shridharkaushik29/laravel-angular-app",
+    "description": "AngularJS Applications in Laravel",
+    "type": "library",
+    "require": {
+        "laravelcollective/html": "^5.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shridharkaushik29",
+            "email": "shridharkaushik29@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
