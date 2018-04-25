@@ -3,7 +3,7 @@
     "description": "AngularJS Applications in Laravel",
     "type": "library",
     "require": {
-        "laravelcollective/html": "^5.6"
+        "laravelcollective/html": "^5.4"
     },
     "license": "MIT",
     "authors": [
@@ -12,5 +12,10 @@
             "email": "shridharkaushik29@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Shridhar\\Angular\\": "src/"
+        }
+    },
     "minimum-stability": "stable"
 }
