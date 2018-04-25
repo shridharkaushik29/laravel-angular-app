@@ -3,7 +3,7 @@
     "description": "AngularJS Applications in Laravel",
     "type": "library",
     "require": {
-        "laravelcollective/html": "^5.4"
+        "shridharkaushik29/laravel-bower": "*"
     },
     "license": "MIT",
     "authors": [
