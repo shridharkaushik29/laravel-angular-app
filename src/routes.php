@@ -1,7 +1,6 @@
 <?php
 
 use Shridhar\Angular\Facades\App;
-use Illuminate\Support\Facades\Artisan;
 
 $apps = collect(config("angular.apps"))->sortBy("order");
 
@@ -38,18 +37,4 @@ $apps->each(function($app) {
             return $app->bootstrap();
         })->where("path", ".*")->name($route_name);
     });
-});
-
-Artisan::command("bower:install {name}", function($name) {
-    $assets_path = public_path("assets");
-    @mkdir($assets_path);
-    chdir($assets_path);
-    system("bower install $name");
-});
-
-Artisan::command("bower:uninstall {name}", function($name) {
-    $assets_path = public_path("assets");
-    @mkdir($assets_path);
-    chdir($assets_path);
-    system("bower uninstall $name");
 });
