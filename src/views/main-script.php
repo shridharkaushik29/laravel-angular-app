@@ -1,4 +1,6 @@
-<base href="<?= $app->siteUrl() ?>/">
+<?php if ($app->getConfig("html5Mode")): ?>
+    <base href="<?= $app->siteUrl() ?>/">
+<?php endif; ?>
 <script>
     var $appName = "<?= $app->name() ?>";
     var $appTitle = "<?= $app->title() ?>";

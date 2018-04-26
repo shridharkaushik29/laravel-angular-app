@@ -2,7 +2,6 @@
 
 namespace Shridhar\Angular\Facades;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Shridhar\Bower\Bower;
 use Shridhar\Bower\Asset;
@@ -14,7 +13,7 @@ use Shridhar\Bower\Asset;
  */
 class App {
 
-    protected $index_file = "index", $files_dir = "files", $apps_view_dir, $html;
+    protected $index_file = "index", $files_dir = "files", $apps_view_dir, $html, $assets_loaded = [];
     protected static $__config = [];
 
     function getConfig($key) {
@@ -94,15 +93,23 @@ class App {
         return $this->getConfig("vars.$key");
     }
 
-    function asset($name, $type = null) {
+    function asset($name, $type = null, $baseUrl = null, $basePath = null) {
         $app = $this->getConfig("name");
         $asset_path = $this->getConfig("assets.$name") ?: $name;
 
-        $base_path = $this->getConfig("assets.path") ?: public_path("assets/$app");
-        $base_url = $this->getConfig("assets.url") ?: url("assets/$app");
+        $base_path = $basePath ?: $this->getConfig("assets.path") ?: public_path("assets/$app");
+        $base_url = $baseUrl ?: $this->getConfig("assets.url") ?: url("assets/$app");
 
         $path = "$base_path/$asset_path";
         $url = "$base_url/$asset_path";
+
+        $this->assets_loaded[] = [
+            "full_path" => $path,
+            "base_url" => $base_url,
+            "base_path" => $base_path,
+            "name" => $name
+        ];
+
         return Asset::make([
                     "path" => $path,
                     "url" => $url,
@@ -110,14 +117,14 @@ class App {
         ]);
     }
 
+    function loadedAssets() {
+        return $this->assets_loaded;
+    }
+
     function assetGlobal($asset_path, $type = null) {
-        $path = public_path($asset_path);
-        $url = asset($asset_path);
-        return Asset::make([
-                    "path" => $path,
-                    "url" => $url,
-                    "type" => $type,
-        ]);
+        $base_url = asset("");
+        $base_path = public_path("");
+        return $this->asset($asset_path, $type, $this->getConfig("assets.global.url") ?: $base_url, $this->getConfig("assets.global.path") ?: $base_path);
     }
 
     function assetExternal($url, $type = null) {
@@ -162,6 +169,10 @@ class App {
         ]);
     }
 
+    function templatesPath() {
+//        return base
+    }
+
     function templatesExtension() {
         return $this->getConfig("templates.extension");
     }
@@ -173,7 +184,11 @@ class App {
 
     function siteUrl() {
         $name = Route::currentRouteName();
-        return $this->getConfig("site.url") ?: route($name);
+        $url = $this->getConfig("site.url");
+        if (!$url && Route::has($name)) {
+            $url = route($name);
+        }
+        return $url;
     }
 
     function servicesUrl() {

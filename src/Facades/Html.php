@@ -46,6 +46,13 @@ class Html extends HtmlFacade {
         return "<title>$text</title>";
     }
 
+    function html5Mode() {
+        $html5Mode = $this->ng_app->getConfig("html5Mode");
+        if ($html5Mode) {
+            return '<script>angular.module($appName).config($locationProvider=>{$locationProvider.html5Mode(true)})</script>';
+        }
+    }
+
     function main_script() {
         return view("angular::main-script", [
             "app" => $this->ng_app
