@@ -193,9 +193,14 @@ class App {
 
     function servicesUrl() {
         $name = $this->name();
-        return $this->getConfig("services.url") ?: route("services_$name", [
-                    "path" => ""
-        ]);
+        $route_name = "services_$name";
+        $url = $this->getConfig("services.url");
+        if (Route::has($route_name) && !$url) {
+            $url = route($route_name, [
+                "path" => ""
+            ]);
+        }
+        return $url;
     }
 
 }
