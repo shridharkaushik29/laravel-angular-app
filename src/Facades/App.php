@@ -122,9 +122,9 @@ class App {
     }
 
     function assetGlobal($asset_path, $type = null) {
-        $base_url = asset("");
-        $base_path = public_path("");
-        return $this->asset($asset_path, $type, $this->getConfig("assets.global.url") ?: $base_url, $this->getConfig("assets.global.path") ?: $base_path);
+        $base_url = rtrim($this->getConfig("assets.global.url") ?: asset(""), "/\\");
+        $base_path = rtrim($this->getConfig("assets.global.path") ?: public_path(""), "/\\");
+        return $this->asset($asset_path, $type, $base_url, $base_path);
     }
 
     function assetExternal($url, $type = null) {
