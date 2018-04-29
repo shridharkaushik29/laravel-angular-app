@@ -1,8 +1,9 @@
 <?php
 
 use Shridhar\Angular\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 
-$apps = collect(config("angular.apps"))->sortBy("order");
+$apps = App::getAllApps()->sortBy("order");
 
 $apps->each(function($app) {
 
@@ -37,4 +38,25 @@ $apps->each(function($app) {
             return $app->bootstrap();
         })->where("path", ".*")->name($route_name);
     });
+});
+
+
+Artisan::command("angular:bower-install {--app=} {--name=} {--a|all}", function ($app = null, $name = null, $all) {
+    $app = $app ?: $this->choice("App", App::getAllApps()->pluck("name")->toArray());
+    $apph = App::getByName($app);
+    $bower = $apph->bower();
+    if (!$all) {
+        $name = $name ?: $this->ask("Component Name?");
+        $bower->install($name);
+    } else {
+        $bower->installAll();
+    }
+});
+
+Artisan::command("angular:bower-uninstall {--app=} {--name=}", function ($app = null, $name = null) {
+    $app = $app ?: $this->choice("App", App::getAllApps()->pluck("name")->toArray());
+    $apph = App::getByName($app);
+    $bower = $apph->bower();
+    $name = $name ?: $this->ask("Component Name?");
+    $bower->uninstall($name);
 });

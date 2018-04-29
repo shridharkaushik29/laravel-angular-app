@@ -5,6 +5,7 @@ namespace Shridhar\Angular\Facades;
 use Illuminate\Support\Facades\Route;
 use Shridhar\Bower\Bower;
 use Shridhar\Bower\Asset;
+use Exception;
 
 /**
  * Description of App
@@ -36,6 +37,18 @@ class App {
         return app()->makeWith(__CLASS__, [
                     "data" => $data
         ]);
+    }
+
+    static function getByName($name) {
+        $config = static::getAllApps()->where("name", $name)->first();
+        if (!$config) {
+            throw new Exception("App config not found.");
+        }
+        return static::get($config);
+    }
+
+    static function getAllApps() {
+        return collect(config("angular.apps"));
     }
 
     function rename($new_name) {
@@ -167,10 +180,6 @@ class App {
         return $this->getConfig("templates.url") ?: route("templates_$name", [
                     "path" => ""
         ]);
-    }
-
-    function templatesPath() {
-//        return base
     }
 
     function templatesExtension() {
