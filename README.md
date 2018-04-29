@@ -1,9 +1,6 @@
 # laravel-angular-apps
 
-Auto Bootstrap & Compile AngularJS Applications in Laravel
+This plugin provides a great eloquent way of creating angularjs applications, run them in the browser and quickly create an Android and iOS app using cordova.
 
-AngularJS applications in Laravel
-
-Dependencies
-
-laravelcollective/html: "^5.4"
+Installation
+<hr>
