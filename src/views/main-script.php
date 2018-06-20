@@ -21,11 +21,4 @@
         }
         return  url;
     }
-
-    angular.module($appName, <?= $app->dependencies() ?>)
-<?php if ($app->getConfig("html5Mode")): ?>
-        .config($locationProvider => {
-            $locationProvider.html5Mode(true)
-        })
-<?php endif; ?>
 </script>

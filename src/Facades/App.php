@@ -65,11 +65,7 @@ class App {
             rename(config_path("shridhar/angular-apps/$name.php"), config_path("shridhar/angular-apps/$new_name.php"));
         }
     }
-
-    function bootstrap() {
-        return $this->index();
-    }
-
+    
     function index() {
         return $this->file("index");
     }

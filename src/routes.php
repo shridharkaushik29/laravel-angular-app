@@ -35,7 +35,7 @@ $apps->each(function($app) {
         $route_name = "bootstrap-$name-$key";
         Route::get($route, function() use($app) {
             $app = App::get($app);
-            return $app->bootstrap();
+            return $app->index();
         })->where("path", ".*")->name($route_name);
     });
 });
