@@ -19,7 +19,7 @@ class Html extends HtmlFacade {
     }
 
     function responsive_meta() {
-        return HtmlFacade::meta("viewport", "width=device-width, initial-scale=1, shrink-to-fit=yes");
+        return HtmlFacade::meta("viewport", "width=device-width, height=device-height, initial-scale=1, viewport-fit=cover");
     }
 
     function fav_icon($url = null) {
