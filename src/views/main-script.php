@@ -2,23 +2,12 @@
     <base href="<?= $app->siteUrl() ?>/">
 <?php endif; ?>
 <script>
-    var $appName = "<?= $app->name() ?>";
-    var $appTitle = "<?= $app->title() ?>";
-    var $siteUrl = "<?= $app->siteUrl() ?>/";
-    var $templatesUrl = "<?= $app->templatesUrl() ?>/";
-    var $templatesExtension = "<?= $app->templatesExtension() ?>";
-    var $servicesUrl = "<?= $app->servicesUrl() ?>/";
-
-    function getTemplateUrl(path) {
-        var base = $templatesUrl;
-        var ext = $templatesExtension;
-        var url = path;
-        if (base) {
-            url = base + url;
+    <?php
+    $app->jsVars()->each(function ($value, $name) {
+        if (!is_bool($value) && !is_integer($value)) {
+            $value = "\"$value\"";
         }
-        if (ext) {
-            url += "." + ext;
-        }
-        return  url;
-    }
+        echo "var $name = $value;";
+    });
+    ?>
 </script>
