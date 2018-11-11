@@ -74,11 +74,12 @@ class Provider extends ServiceProvider {
         });
 
         App::macro("title", function ($title = null) {
+            $app_title = $this->getConfig("title");
             if ($title) {
                 $name = $this->name();
-                return "$title | $name";
+                return "$title | $app_title";
             } else {
-                return $this->getConfig("title");
+                return $app_title;
             }
         });
 
