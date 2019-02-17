@@ -2,10 +2,10 @@
     "name": "shridharkaushik29/laravel-angular-app",
     "description": "AngularJS Applications in Laravel",
     "type": "library",
-    "require": {
-        "shridharkaushik29/laravel-bower": "*"
-    },
     "license": "MIT",
+    "require": {
+        "laravel/framework": "5.6.*"
+    },
     "authors": [
         {
             "name": "shridharkaushik29",
@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Shridhar\\Angular\\Provider"
+                "Shridhar\\Angular\\AngularProvider"
             ]
         }
     }

@@ -1,8 +1,8 @@
-# laravel-angular-apps
+# laravel-angular-app
 
 This plugin provides a great eloquent way of creating HTML5 applications with AngularJS, Angular, ReactJS, Vue and many more.
 
-Don't go with the name of the package i.e., `laravel-angular-apps`, beacause initially, this package was designed to create only AngularJS applications, but now it's objective is to create, build and load assets in an elegant way in Laravel.
+Don't go with the name of the package i.e. `laravel-angular-app`, because initially, this package was designed to create only AngularJS applications, but now it's objective is to create, build and load assets in an elegant way in Laravel.
 
 **Installation:**
 
@@ -10,77 +10,49 @@ Don't go with the name of the package i.e., `laravel-angular-apps`, beacause ini
 
 **Usage:**
 
-1. Add the provider in `config/app.php`. Skip this step if you are using Laravel version greater than 5.4.
+Add the provider in `config/app.php`. Skip this step if you are using Laravel version greater than 5.4.
 
-```
+```php
 "providers" => [
     Shridhar\Angular\Provider::class
-]
-```
-
-2. Create a config file <code>angular.php</code> in <code>app/config</code> directory, like below.
-
-```
-return [
-    "apps" => [                //Array containing configs for all the individual apps
-        [
-            "name" => "welcome",  //This name will be used to compile and load assets for the application.
-            "favicon" => "angular.png",
-            "html5Mode" => true,
-            "title" => "Laravel"
-        ]
-    ]
 ]
 ```
 
 
 **Creating multiple apps per Laravel Installation.**
 
-This package offers to create multiple Webpack applications in a single Laravel installation. For example, if you want to create an E-Commerce application, then it would require a separate application to manage the content for the front end application. This is handled very efficiently in this package.
-
-To create multiple apps, just add more app in the `apps` key in the configuration array, like following:
-
-```
-return [
-    "apps" => [                //Array containing configs for all the individual apps
-        [
-            "name" => "welcome",  //This name will be used to compile and load assets for the application.
-            "favicon" => "angular.png",
-            "html5Mode" => true,
-            "title" => "Laravel"
-        ],
-        [
-            "name" => "admin",  //This name will be used to compile and load assets for the application.
-            "favicon" => "angular.png",
-            "html5Mode" => false,
-            "title" => "Laravel Admin"
-        ]
-    ]
-]
-```
+This package offers to create multiple webpack applications in a single Laravel installation. For example, if you want to create an E-Commerce application, then it would require a separate application to manage the content for the front end application. This is handled very efficiently in this package because you can create as many applications you want with different blades.
 
 **Creating Blade View**
 
-```
-@angular(welcome)
-<html>
+```php+HTML
+@angular("react")
+{{--Used to set app name--}}
+@route("react")
+{{--Used to define site route name--}}
+@title("Laravel React")
+{{--Used to define application title--}}
+@servicesRoute("services")
+{{--Used to define services route, when defined a $servicesUrl variable is defined in javascript--}}
+<html lang="en">
 <head>
-    @title
-    @favicon
-    @responsive
-    @include("angular::main-script")
-    {!!$app->html()->google_font("Raleway")!!}
+    <title>{{$app->title()}}</title>
+    <base href="{{$app->url()}}/">
+    <link href="{{asset("img/laravel-developer.png")}}" rel="shortcut icon"/>
     <link href="{{$app->asset("style.css")->url()}}" rel="stylesheet"/>
+    @vars()
+    {{--Used to print <script> tag containing javascript variables--}}
 </head>
 <body>
-<div class="pre-loader">
-    <img class="logo" src="{{url("storage/laravel-logo.png")}}">
+<div id="app"></div>
+<div class="pre-loader" ng-if="showPreloader">
+    <img class="logo" src="{{asset("storage/laravel-logo.png")}}">
     <p>Loading Application</p>
 </div>
-</body>
 <script src="{{$app->asset("runtime.js")->url()}}" async></script>
 <script src="{{$app->asset("vendor.js")->url()}}" async></script>
 <script src="{{$app->asset("main.js")->url()}}" async></script>
+</body>
 </html>
 ```
 
@@ -89,7 +61,7 @@ return [
 There's nothing special required to load views, it's as usual.
 
 
-```
+```php
 Route::get('/', function () {
     return view('welcome');
 });
@@ -103,10 +75,13 @@ For example, if an app is having name `welcome`, then there should be a director
 
 **Loading Assets**
 
-`$app->asset("path/for/asset")` will return an instance for `Shridhar\Bower\Asset` class. It contains an `url()` method which return an absolute url for that asset.
+`$app->asset("path/for/asset")` will return an instance for `Shridhar\Bower\Asset` class. 
+
+It contains an `url()` method which return an absolute url for that asset.
 
 
-```
-<link href="{{$app->asset("style.css")->url()}}" rel="stylesheet"/> It will return url for the file located at 'public/assets/welcome/style.css'
+```php+HTML
+<link href="{{$app->asset("style.css")->url()}}" rel="stylesheet"/> 
 <script src="{{$app->asset("runtime.js")->url()}}" async></script>
+<img src="{{$app->asset("logo.jpg")->url()}}">
 ```
