@@ -46,7 +46,7 @@ class Asset {
      * @param string $base_path
      * @return Asset
      */
-    public function setBasePath(string $base_path): Asset {
+    public function setBasePath($base_path) {
         $this->base_path = $base_path;
         return $this;
     }

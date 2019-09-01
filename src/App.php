@@ -2,9 +2,9 @@
 
 namespace Shridhar\Angular;
 
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Macroable;
-use Exception;
 
 /**
  * Description of App
@@ -179,6 +179,7 @@ class App {
         } else if ($this->services_url) {
             return $this->services_url;
         }
+        return "";
     }
 
     /**
@@ -218,7 +219,8 @@ class App {
     }
 
     /**
-     * @param mixed $js_vars
+     * @param $key
+     * @param $value
      * @return App
      */
     public function setJsVar($key, $value) {
@@ -243,6 +245,7 @@ class App {
     }
 
     /**
+     * @param $key
      * @return mixed
      */
     public function getJsVar($key) {
