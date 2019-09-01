@@ -4,8 +4,10 @@
     $app->js_vars()->each(function ($value, $name) {
         if (is_object($value) || is_array($value)) {
             $value = json_encode($value);
-        } elseif (!is_bool($value) && !is_integer($value)) {
+        } elseif (is_string($value)) {
             $value = "\"$value\"";
+        } elseif ($value === null) {
+            $value = "null";
         }
         echo "var $name = $value;";
     });
