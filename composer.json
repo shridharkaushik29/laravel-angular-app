@@ -1,28 +1,29 @@
 {
-    "name": "shridharkaushik29/laravel-angular-app",
-    "description": "AngularJS Applications in Laravel",
-    "type": "library",
-    "license": "MIT",
-    "require": {
-        "laravel/framework": "5.7.*"
-    },
-    "authors": [
-        {
-            "name": "shridharkaushik29",
-            "email": "shridharkaushik29@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Shridhar\\Angular\\": "src/"
-        }
-    },
-    "minimum-stability": "stable",
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Shridhar\\Angular\\AngularProvider"
-            ]
-        }
+  "name": "shridharkaushik29/laravel-angular-app",
+  "description": "AngularJS Applications in Laravel",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "laravel/framework": "5.8.*",
+    "ext-json": "*"
+  },
+  "authors": [
+    {
+      "name": "shridharkaushik29",
+      "email": "shridharkaushik29@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Shridhar\\Angular\\": "src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Shridhar\\Angular\\AngularProvider"
+      ]
+    }
+  }
 }
